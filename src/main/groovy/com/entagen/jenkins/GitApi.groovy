@@ -7,7 +7,7 @@ class GitApi {
     Pattern branchNameFilter = null
 
     public List<String> getBranchNames() {
-        String command = "cmd.exe /C 'git ls-remote --heads ${gitUrl}'"
+        String command = "cmd.exe /C 'D:\Sites\Jenkins\git\bin\git.exe ls-remote --heads ${gitUrl}'"
         List<String> branchNames = []
 
         eachResultLine(command) { String line ->
