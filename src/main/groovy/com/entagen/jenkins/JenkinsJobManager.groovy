@@ -15,7 +15,8 @@ class JenkinsJobManager {
     //Base directory that contains the physical feature sites to delete
     //when a job is deleted
     String featureSiteBaseDir
-
+    String cleanupScript
+    
     //Delete the physical directory as well (not yet supported)
     Boolean cleanupDirectory = false
     
