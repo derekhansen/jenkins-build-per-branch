@@ -16,7 +16,7 @@ class JenkinsJobManager {
     //when a job is deleted
     String featureSiteBaseDir
     String cleanupScript
-    
+
     //Delete the physical directory as well (not yet supported)
     Boolean cleanupDirectory = false
     
@@ -86,6 +86,7 @@ class JenkinsJobManager {
             jobName.find(regex) {full, baseJobName, branchName ->
                 branchToCleanup = branchName
             }
+            println "branchToCleanup is ${branchToCleanup}"
             jenkinsApi.deleteJob(jobName, branchToCleanup)
         }
     }
