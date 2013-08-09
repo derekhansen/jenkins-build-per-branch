@@ -105,11 +105,10 @@ class JenkinsApi {
         println "deleting job $jobName"
         post("job/${jobName}/doDelete")
         println "featureSiteBaseDir is ${featureSiteBaseDir}"
-        if(featureSiteBaseDir != null) {
-            String command = "cmd.exe /C ${cleanupScript} ${branchToCleanup} ${featureSiteBaseDir}\\${branchToCleanup} -r"
-            println "Running command ${command}"
-            runCommand(command)
-        }
+        String command = "cmd.exe /C D:\\Batches\\ams-web-provisioner ${branchToCleanup} D:\\Sites\\NU\\testing.nimbleams.com\\${branchToCleanup} -r"
+        println "Running command ${command}"
+        runCommand(command)
+        
     }
 
     void createViewForBranch(BranchView branchView, String nestedWithinView = null) {
