@@ -48,7 +48,6 @@ class JenkinsApi {
         def response = get(path: 'api/json')
         def jobNames = response.data.jobs.name
         if (prefix) return jobNames.findAll { it.startsWith(prefix) }
-        jobNames.each {jobName -> println "${jobName} matched prefix in getJobNames"}
         return jobNames
     }
 
