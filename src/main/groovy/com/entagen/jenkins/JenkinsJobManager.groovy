@@ -166,7 +166,7 @@ class JenkinsJobManager {
             } else {
                 this.jenkinsApi = new JenkinsApi(jenkinsServerUrl: jenkinsUrl)
             }
-
+            println "Jenkins init debug cleanupscript is ${cleanupScript} and featureSiteBaseDir is ${featureSiteBaseDir}"
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
             if (cleanupScript != null) this.jenkinsApi.setCleanupScript(cleanupScript)
             if (featureSiteBaseDir != null) this.jenkinsApi.setfeatureSiteBaseDir(featureSiteBaseDirs)
