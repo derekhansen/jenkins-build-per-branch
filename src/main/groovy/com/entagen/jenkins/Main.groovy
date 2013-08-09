@@ -20,8 +20,8 @@ class Main {
             f: [longOpt: 'filter-branch-names', required: false, args:  1, argName:  'branchNameRegex', description: "Only branches matching the regex will be accepted - gradle flag: -DbranchNameRegex=<regex>"],
             usr: [longOpt: 'jenkins-user',  required: false, args: 1, argName: 'jenkinsUser', description: "Jenkins username - gradle flag -DjenkinsUser=<jenkinsUser>"],
             pwd: [longOpt: 'jenkins-password',  required: false, args: 1, argName: 'jenkinsPassword', description: "Jenkins password - gradle flag -DjenkinsPassword=<jenkinsPassword>"],
-            cs: [longOpt: 'cleanup-script',  required: false, args: 1, argName: 'cleanupScript', description: "Script - gradle flag -DcleanupScript=<script>"],
-            fsdir: [longOpt: 'feature-site-base-dir',  required: false, args: 1, argName: 'featureSiteBaseDir', description: "Site Directory - gradle flag -DfeatureSiteBaseDir=<dirpath>"]
+            cs: [longOpt: 'cleanup-script',  required: true, args: 1, argName: 'cleanupScript', description: "Script - gradle flag -DcleanupScript=<script>"],
+            fsdir: [longOpt: 'feature-site-base-dir',  required: true, args: 1, argName: 'featureSiteBaseDir', description: "Site Directory - gradle flag -DfeatureSiteBaseDir=<dirpath>"]
     ]
 
     public static void main(String[] args) {
