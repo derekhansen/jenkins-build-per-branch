@@ -169,7 +169,7 @@ class JenkinsJobManager {
 
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
             if (cleanupScript != null) this.jenkinsApi.setCleanupScript(cleanupScript)
-            if (featureSiteBaseDir != null) this.jenkinsApi.featureSiteBaseDir(featureSiteBaseDir)
+            if (featureSiteBaseDir != null) this.jenkinsApi.setfeatureSiteBaseDir(featureSiteBaseDirs)
         }
 
         return this.jenkinsApi

@@ -30,6 +30,10 @@ class JenkinsApi {
         this.cleanupScript = cleanupScript
     }
 
+    public void setfeatureSiteBaseDir(String featureSiteBaseDir) {
+        this.featureSiteBaseDir = featureSiteBaseDir
+    }
+
     public void addBasicAuth(String jenkinsServerUser, String jenkinsServerPassword) {
         println "use basic authentication"
 
