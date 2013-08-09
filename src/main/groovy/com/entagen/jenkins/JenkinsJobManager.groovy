@@ -81,7 +81,7 @@ class JenkinsJobManager {
     public void deleteDeprecatedJobs(List<String> deprecatedJobNames) {
         if (!deprecatedJobNames) return
         println "Deleting deprecated jobs:\n\t${deprecatedJobNames.join('\n\t')}"
-        String regex = /^($templateJobPrefix-[^-]*)-($templateBranchName)$/
+        String regex = /^($templateJobPrefix-[^-]*)-($branchNameRegex)$/
         deprecatedJobNames.each { String jobName ->
             String branchToCleanup = null
             println "jobName is ${jobName}"
@@ -111,7 +111,7 @@ class JenkinsJobManager {
     }
 
     List<TemplateJob> findRequiredTemplateJobs(List<String> allJobNames) {
-        String regex = /^($templateJobPrefix-[^-]*)-($branchNameRegex)$/
+        String regex = /^($templateJobPrefix-[^-]*)-($templateBranchName)$/
 
         List<TemplateJob> templateJobs = allJobNames.findResults { String jobName ->
             TemplateJob templateJob = null
