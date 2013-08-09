@@ -30,6 +30,7 @@ class JenkinsJobManager {
 
     JenkinsJobManager(Map props) {
         for (property in props) {
+            println "propkey ${property.key} propvalue ${property.value}"
             this."${property.key}" = property.value
         }
         initJenkinsApi()
