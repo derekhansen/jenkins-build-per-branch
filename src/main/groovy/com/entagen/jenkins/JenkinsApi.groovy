@@ -104,6 +104,7 @@ class JenkinsApi {
     void deleteJob(String jobName, String branchToCleanup) {
         println "deleting job $jobName"
         post("job/${jobName}/doDelete")
+        println "featureSiteBaseDir is ${featureSiteBaseDir}"
         if(featureSiteBaseDir != null) {
             String command = "cmd.exe /C ${cleanupScript} ${branchToCleanup} ${featureSiteBaseDir}\\${branchToCleanup} -r"
             println "Running command ${command}"
