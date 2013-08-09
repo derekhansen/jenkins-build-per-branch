@@ -19,7 +19,7 @@ class JenkinsApiReadOnly extends JenkinsApi {
     }
 
     @Override
-    protected void deleteJob(String jobName, String branchToCleanup) {
+    void deleteJob(String jobName, String branchToCleanup) {
         println "READ ONLY! skipping cleanupScript run of ${jobName} for branchToCleanup - ${branchToCleanup}"
     }
 }
