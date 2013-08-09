@@ -83,7 +83,9 @@ class JenkinsJobManager {
         String regex = /^($templateJobPrefix-[^-]*)-($templateBranchName)$/
         deprecatedJobNames.each { String jobName ->
             String branchToCleanup = null
+            println "jobName is ${jobName}"
             jobName.find(regex) {full, baseJobName, branchName ->
+                println "full is ${full}, baseJobName is ${baseJobName}, branchName is ${branchName}"
                 branchToCleanup = branchName
             }
             println "branchToCleanup is ${branchToCleanup}"
