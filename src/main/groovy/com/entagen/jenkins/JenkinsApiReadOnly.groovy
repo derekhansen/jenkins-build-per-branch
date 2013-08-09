@@ -17,4 +17,9 @@ class JenkinsApiReadOnly extends JenkinsApi {
         // we never want to post anything with a ReadOnly API, just return OK for all requests to it
         return HttpStatus.SC_OK
     }
+
+    @Override
+    protected void deleteJob(String jobName, String branchToCleanup) {
+        println "READ ONLY! skipping cleanupScript run of ${jobName} for branchToCleanup - ${branchToCleanup}"
+    }
 }

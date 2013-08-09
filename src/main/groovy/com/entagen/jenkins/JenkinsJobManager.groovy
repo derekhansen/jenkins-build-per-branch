@@ -11,6 +11,13 @@ class JenkinsJobManager {
     String branchNameRegex
     String jenkinsUser
     String jenkinsPassword
+
+    //Base directory that contains the physical feature sites to delete
+    //when a job is deleted
+    String featureSiteBaseDir
+
+    //Delete the physical directory as well (not yet supported)
+    Boolean cleanupDirectory = false
     
     Boolean dryRun = false
     Boolean noViews = false
@@ -72,8 +79,13 @@ class JenkinsJobManager {
     public void deleteDeprecatedJobs(List<String> deprecatedJobNames) {
         if (!deprecatedJobNames) return
         println "Deleting deprecated jobs:\n\t${deprecatedJobNames.join('\n\t')}"
+        String regex = /^($templateJobPrefix-[^-]*)-($templateBranchName)$/
         deprecatedJobNames.each { String jobName ->
-            jenkinsApi.deleteJob(jobName)
+            String branchToCleanup = null
+            jobName.find(regex) {full, baseJobName, branchName ->
+                branchToCleanup = branchName
+            }
+            jenkinsApi.deleteJob(jobName, branchToCleanup)
         }
     }
 
@@ -152,6 +164,8 @@ class JenkinsJobManager {
             }
 
             if (jenkinsUser || jenkinsPassword) this.jenkinsApi.addBasicAuth(jenkinsUser, jenkinsPassword)
+            if (cleanupScript != null) this.jenkinsApi.setCleanupScript(cleanupScript)
+            if (featureSiteBaseDir != null) this.jenkinsApi.featureSiteBaseDir(featureSiteBaseDir)
         }
 
         return this.jenkinsApi

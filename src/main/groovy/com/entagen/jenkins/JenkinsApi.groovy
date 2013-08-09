@@ -17,11 +17,17 @@ class JenkinsApi {
     HttpRequestInterceptor requestInterceptor
     boolean findCrumb = true
     def crumbInfo
+    String cleanupScript
+    String featureSiteBaseDir
 
     public void setJenkinsServerUrl(String jenkinsServerUrl) {
         if (!jenkinsServerUrl.endsWith("/")) jenkinsServerUrl += "/"
         this.jenkinsServerUrl = jenkinsServerUrl
         this.restClient = new RESTClient(jenkinsServerUrl)
+    }
+
+    public void setCleanupScript(String cleanupScript) {
+        this.cleanupScript = cleanupScript
     }
 
     public void addBasicAuth(String jenkinsServerUser, String jenkinsServerPassword) {
@@ -91,9 +97,13 @@ class JenkinsApi {
         return config
     }
 
-    void deleteJob(String jobName) {
+    void deleteJob(String jobName, String branchToCleanup) {
         println "deleting job $jobName"
         post("job/${jobName}/doDelete")
+        if(featureSiteBaseDir != null) {
+            String command = "cmd.exe /C ${cleanupScript} ${branchToCleanup} ${featureSiteBaseDir}\\${branchToCleanup} -r"
+            runCommand(command)
+        }
     }
 
     void createViewForBranch(BranchView branchView, String nestedWithinView = null) {
@@ -217,7 +227,31 @@ class JenkinsApi {
         }
         return status
     }
+    
+    //Command is not Read-Only, take care if adding to the read-only api
+    public void runCommand(String command) {
+        println "executing command: $command"
+        def process = command.execute()
+        def inputStream = process.getInputStream()
+        def output = ""
 
+        while(true) {
+          int readByte = inputStream.read()
+          if (readByte == -1) break // EOF
+          byte[] bytes = new byte[1]
+          bytes[0] = readByte
+          output = output.concat(new String(bytes))
+        }
+        process.waitFor()
+
+        if (process.exitValue() != 0) {
+            String errorText = process.errorStream.text?.trim()
+            println "error executing command: $command"
+            println errorText
+            throw new Exception("Error executing command: $command -> $errorText")
+        }
+    }
+    
     static final String VIEW_COLUMNS_JSON = '''
 "columns":[
       {
