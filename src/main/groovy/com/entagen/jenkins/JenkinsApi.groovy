@@ -105,7 +105,7 @@ class JenkinsApi {
         println "deleting job $jobName"
         post("job/${jobName}/doDelete")
         println "featureSiteBaseDir is ${featureSiteBaseDir}"
-        String command = "cmd.exe /C D:\\Batches\\v2\\ams-web-provisioner ${branchToCleanup} D:\\Sites\\ECC\\testing.ecc.com\\${branchToCleanup} -r"
+        String command = "cmd.exe /C D:\\Batches\\v2\\ams-web-provisioner ${branchToCleanup} D:\\Sites\\ECC\\testing.ecc.org\\${branchToCleanup} -r"
         println "Running command ${command}"
         runCommand(command)
         
